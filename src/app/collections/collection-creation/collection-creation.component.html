@@ -1,0 +1,38 @@
+<form #collectionForm="ngForm" (ngSubmit)="onSubmit(collectionForm)">
+  <div>
+    <mat-form-field class="search-full-width">
+      <input
+        matInput
+        placeholder="Title"
+        value=""
+        name="title"
+        ngModel
+        required
+        appCustomDirective>
+<!--      <mat-error *ngIf="search.invalid">-->
+<!--        No symbols allowed-->
+<!--      </mat-error>-->
+    </mat-form-field>
+    <br>
+    <mat-form-field class="search-full-width">
+      <input
+        matInput
+        placeholder="Description"
+        name="description"
+        value=""
+        ngModel
+        required>
+      <!--      <mat-error *ngIf="search.invalid">-->
+      <!--        No symbols allowed-->
+      <!--      </mat-error>-->
+    </mat-form-field>
+  </div>
+  <div class="collection-button-row">
+    <button
+      [disabled]="!collectionForm.valid"
+      type="submit"
+      mat-raised-button
+      color="primary"
+    >Save Collection</button>
+  </div>
+</form>
