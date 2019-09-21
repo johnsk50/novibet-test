@@ -19,6 +19,8 @@ import {MatIconModule} from '@angular/material/icon';
 import { MovieDetailsComponent } from './movie-details/movie-details.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { HeaderComponent } from './header/header.component';
+import { CollectionsComponent } from './collections/collections.component';
+import {AppRoutingModule} from './app-routing.module';
 
 
 @NgModule({
@@ -27,7 +29,8 @@ import { HeaderComponent } from './header/header.component';
     SearchComponent,
     CustomDirectiveDirective,
     MovieDetailsComponent,
-    HeaderComponent
+    HeaderComponent,
+    CollectionsComponent
   ],
   imports: [
     BrowserModule,
@@ -44,8 +47,8 @@ import { HeaderComponent } from './header/header.component';
     MatCheckboxModule,
     MatPaginatorModule,
     MatIconModule,
-    MatDialogModule
-
+    MatDialogModule,
+    AppRoutingModule
   ],
   entryComponents: [MovieDetailsComponent],
   providers: [SearchService],

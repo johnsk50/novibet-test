@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {DialogInputData} from '../models/dialogInputData.model';
 import {SearchService} from '../search.service';
 import {MovieDetailsModel} from '../models/movieDetails.model';
@@ -14,7 +14,7 @@ export class MovieDetailsComponent implements OnInit {
   movieDetails = new MovieDetailsModel();
 
   constructor( private searchService: SearchService,
-    @Inject(MAT_DIALOG_DATA) public data: DialogInputData) { }
+               @Inject(MAT_DIALOG_DATA) public data: DialogInputData) { }
 
   ngOnInit() {
     console.log(this.data);

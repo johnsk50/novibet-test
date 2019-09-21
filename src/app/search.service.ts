@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {map} from 'rxjs/operators';
 import {MovieDetailsModel} from './models/movieDetails.model';
-import {MoviesResults} from './models/movieResults.model';
+import {MovieResultsModel} from './models/movieResults.model';
 
 @Injectable()
 export class SearchService {
@@ -23,7 +23,7 @@ export class SearchService {
     searchParams = searchParams.append('page', page.toString());
 
     return this.http
-      .get(
+      .get<MovieResultsModel>(
         'https://api.themoviedb.org/3/search/movie',
         {
           params: searchParams

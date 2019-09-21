@@ -6,8 +6,7 @@ import {SearchService} from './search.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit{
-  title = 'novibet-test';
+export class AppComponent implements OnInit {
 
   constructor(private searchService: SearchService) {}
 
