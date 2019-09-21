@@ -1,0 +1,42 @@
+<mat-card class="search-card">
+  <mat-card-header>
+    <mat-card-title>{{ movieDetails.title }}</mat-card-title>
+  </mat-card-header>
+  <img
+    mat-card-sm-image
+    src="{{ movieDetails.poster_path }}"
+    alt="Movie Photo"
+  />
+  <mat-card-content>
+    <p class="search-rating">RATING: {{ movieDetails.vote_average }}</p>
+  </mat-card-content>
+  <mat-card-content>
+    <p class="search-rating">OVERVIEW: {{ movieDetails.overview }}</p>
+  </mat-card-content>
+  <mat-card-content>
+    <p class="search-rating">BUDGET: {{ movieDetails.budget }}</p>
+  </mat-card-content>
+  <mat-card-content>
+    <p class="search-rating">RELEASE DATE: {{ movieDetails.release_date }}</p>
+  </mat-card-content>
+  <mat-card-content>
+    <p class="search-rating">REVENUE: {{ movieDetails.revenue }}</p>
+  </mat-card-content>
+  <mat-card-content>
+    <p class="search-rating">TOTAL VOTES: {{ movieDetails.vote_count }}</p>
+  </mat-card-content>
+
+<!--  <mat-list>-->
+<!--    <mat-divider></mat-divider>-->
+<!--    <h3 mat-subheader>Languages</h3>-->
+<!--    <mat-list-item *ngFor="let lang of languages">-->
+<!--      <h4 mat-line>{{ lang.name }}</h4>-->
+<!--    </mat-list-item>-->
+<!--    <mat-divider></mat-divider>-->
+<!--  </mat-list>-->
+
+<!--  <mat-card-actions>-->
+<!--    <button mat-button color="primary" (click)="onRate()">RATE</button>-->
+<!--  </mat-card-actions>-->
+<!--  <p *ngIf="showSuccess">Successfully Rated</p>-->
+</mat-card>

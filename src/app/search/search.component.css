@@ -1,0 +1,50 @@
+.search-form {
+
+  margin: 3% auto;
+}
+.container{
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 170px;
+  width:100%;
+}
+.search-full-width {
+  width: 400px;
+}
+
+.search-card {
+  max-width: 400px;
+}
+
+.mat-cell {
+  text-align: left !important;
+}
+
+table {
+  width: 100%;
+}
+
+mat-card img{
+  /*object-fit: cover; !*this makes de image in src fit to the size of specified below*!*/
+  /*width: 50%; !* Here you can use wherever you want to specify the width and also the height of the <img>*!*/
+  /*height: auto;*/
+  position: relative;
+  float: left;
+  width:  100px;
+  height: 100px;
+  background-position: 50% 50%;
+  background-repeat:   no-repeat;
+  background-size:     cover;
+}
+
+.table-image {
+  position: relative;
+  float: left;
+  width:  100px;
+  height: 100px;
+  background-position: 50% 50%;
+  background-repeat:   no-repeat;
+  background-size:     cover;
+}
