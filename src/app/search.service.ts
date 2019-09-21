@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpParams} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {map} from 'rxjs/operators';
 import {MovieDetailsModel} from './models/movieDetails.model';
 import {MovieResultsModel} from './models/movieResults.model';
@@ -8,6 +8,12 @@ import {MovieResultsModel} from './models/movieResults.model';
 export class SearchService {
 
   url = 'https://image.tmdb.org/t/p/w500';
+
+  headers = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json;charset=utf-8'
+    })
+  };
 
   private guestSessionId = '';
 
@@ -86,6 +92,26 @@ export class SearchService {
         this.guestSessionId = response.guest_session_id;
         console.log('guest', response);
       });
+  }
+
+  rateMovie(movieId: number, rating: number) {
+    let searchParams = new HttpParams();
+    searchParams = searchParams.append('api_key', '85204a8cc33baf447559fb6d51b18313');
+    searchParams = searchParams.append('guest_session_id', this.guestSessionId);
+
+
+    this.http
+      .post(
+        'https://api.themoviedb.org/3/movie/' + movieId + '/rating',
+        {value: rating,
+          headers: this.headers},
+        {
+          //
+          params: searchParams,
+        }
+      ).subscribe(response => {
+      console.log('rating', response);
+    });
   }
 
 }

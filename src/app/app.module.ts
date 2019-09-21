@@ -21,7 +21,11 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { HeaderComponent } from './header/header.component';
 import { CollectionsComponent } from './collections/collections.component';
 import {AppRoutingModule} from './app-routing.module';
-
+import {MatListModule} from '@angular/material/list';
+import {MatSliderModule} from '@angular/material/slider';
+import {MatButtonModule} from '@angular/material/button';
+import { CollectionCreationComponent } from './collections/collection-creation/collection-creation.component';
+import { CollectionDetailsComponent } from './collections/collection-details/collection-details.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +34,9 @@ import {AppRoutingModule} from './app-routing.module';
     CustomDirectiveDirective,
     MovieDetailsComponent,
     HeaderComponent,
-    CollectionsComponent
+    CollectionsComponent,
+    CollectionCreationComponent,
+    CollectionDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +54,11 @@ import {AppRoutingModule} from './app-routing.module';
     MatPaginatorModule,
     MatIconModule,
     MatDialogModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatListModule,
+    MatSliderModule,
+    MatButtonModule
+
   ],
   entryComponents: [MovieDetailsComponent],
   providers: [SearchService],

@@ -8,35 +8,44 @@
     alt="Movie Photo"
   />
   <mat-card-content>
-    <p class="search-rating">RATING: {{ movieDetails.vote_average }}</p>
+    <p class="search-rating"><b>RATING:</b> {{ movieDetails.vote_average }}</p>
   </mat-card-content>
   <mat-card-content>
-    <p class="search-rating">OVERVIEW: {{ movieDetails.overview }}</p>
+    <p class="search-rating"><b>OVERVIEW: </b>{{ movieDetails.overview }}</p>
   </mat-card-content>
   <mat-card-content>
-    <p class="search-rating">BUDGET: {{ movieDetails.budget }}</p>
+    <p class="search-rating"><b>BUDGET:</b> {{ movieDetails.budget }}</p>
   </mat-card-content>
   <mat-card-content>
-    <p class="search-rating">RELEASE DATE: {{ movieDetails.release_date }}</p>
+    <p class="search-rating"><b>RELEASE DATE:</b> {{ movieDetails.release_date }}</p>
   </mat-card-content>
   <mat-card-content>
-    <p class="search-rating">REVENUE: {{ movieDetails.revenue }}</p>
+    <p class="search-rating"><b>REVENUE:</b> {{ movieDetails.revenue }}</p>
   </mat-card-content>
   <mat-card-content>
-    <p class="search-rating">TOTAL VOTES: {{ movieDetails.vote_count }}</p>
+    <p class="search-rating"><b>TOTAL VOTES:</b> {{ movieDetails.vote_count }}</p>
   </mat-card-content>
 
-<!--  <mat-list>-->
-<!--    <mat-divider></mat-divider>-->
-<!--    <h3 mat-subheader>Languages</h3>-->
-<!--    <mat-list-item *ngFor="let lang of languages">-->
-<!--      <h4 mat-line>{{ lang.name }}</h4>-->
-<!--    </mat-list-item>-->
-<!--    <mat-divider></mat-divider>-->
-<!--  </mat-list>-->
+  <mat-list>
+    <mat-divider></mat-divider>
+    <h3 mat-subheader>Languages</h3>
+    <mat-list-item *ngFor="let lang of movieDetails.spoken_languages">
+      <h5 mat-line>{{ lang.name }}</h5>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+  </mat-list>
 
-<!--  <mat-card-actions>-->
-<!--    <button mat-button color="primary" (click)="onRate()">RATE</button>-->
-<!--  </mat-card-actions>-->
+  <mat-card-actions>
+    <mat-slider
+      class="example-margin"
+      [disabled]="disabled"
+      [max]="max"
+      [min]="min"
+      [step]="step"
+      [thumbLabel]="thumbLabel"
+      [(ngModel)]="value">
+    </mat-slider>
+    <button mat-button color="primary" (click)="onRate()">RATE</button>
+  </mat-card-actions>
 <!--  <p *ngIf="showSuccess">Successfully Rated</p>-->
 </mat-card>

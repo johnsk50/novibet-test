@@ -1,3 +1,39 @@
-<p>
-  collections works!
-</p>
+<h2> Welcome to your Movie Collection</h2>
+
+
+
+<div>
+
+  <table mat-table [dataSource]="collections" class="mat-elevation-z8">
+
+    <ng-container matColumnDef="title">
+      <th mat-header-cell *matHeaderCellDef> Title </th>
+      <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef> Description </th>
+      <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+    </ng-container>
+
+<!--    <ng-container matColumnDef="details">-->
+<!--      <th mat-header-cell *matHeaderCellDef> Details </th>-->
+<!--      <td mat-cell *matCellDef="let element"> <button (click)="onClickDetails(element.id)"> Details </button></td>-->
+<!--    </ng-container>-->
+
+    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+    <tr mat-row #rowItem *matRowDef="let row; columns: columnsToDisplay;"
+        (click)="goToCollectionDetails()"></tr>
+    <!--    routerLink="/cocktail:id={{row.idDrink}}"-->
+  </table>
+  <mat-paginator
+    class="mat-elevation-z8"
+    [length]="resultsLength"
+    [pageSize]="page"
+  ></mat-paginator>
+
+</div>
+<div class="collection-button-row">
+  <a mat-raised-button color="primary" routerLink="/collections/creation">Add a Collection</a>
+</div>
+<router-outlet></router-outlet>

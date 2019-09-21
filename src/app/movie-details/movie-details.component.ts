@@ -13,8 +13,19 @@ export class MovieDetailsComponent implements OnInit {
   // public dialogRef: MatDialogRef<MovieDetailsComponent>,
   movieDetails = new MovieDetailsModel();
 
+  // slider properties
+
+  disabled = false;
+  max = 10;
+  min = 0.5;
+  step = 0.5;
+  thumbLabel = true;
+  value = 0.5;
+
   constructor( private searchService: SearchService,
                @Inject(MAT_DIALOG_DATA) public data: DialogInputData) { }
+
+
 
   ngOnInit() {
     console.log(this.data);
@@ -26,6 +37,9 @@ export class MovieDetailsComponent implements OnInit {
       });
   }
 
+  onRate() {
+    this.searchService.rateMovie( this.data.id, this.value);
+  }
   // onNoClick(): void {
   //   this.dialogRef.close();
   // }
