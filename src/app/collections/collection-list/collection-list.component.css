@@ -1,0 +1,9 @@
+table {
+  width: 100%;
+}
+
+.collection-button-row button,
+.collection-button-row a {
+  margin-right: 8px;
+  margin-top: 8px;
+}
