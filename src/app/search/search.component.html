@@ -7,7 +7,7 @@
       ngModel
       #search="ngModel"
       appCustomDirective
-      (keydown.enter)="searchMovie(search.value, search)">
+      (keydown.enter)="searchMovie(search)">
     <mat-error *ngIf="search.invalid">
       No symbols allowed
     </mat-error>
@@ -65,4 +65,12 @@
     (page)="goToNextPage(search.value, $event)"
   ></mat-paginator>
 
+</div>
+<br>
+<div class="collection-button-row">
+  <button
+    mat-raised-button
+    color="accent"
+    (click)="onAddToCollection()"
+  >Add to Collection</button>
 </div>

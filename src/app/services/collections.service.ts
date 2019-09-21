@@ -1,12 +1,14 @@
 import {Injectable} from '@angular/core';
 import {CollectionsModel} from '../models/collections.model';
+import {BehaviorSubject} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CollectionsService {
 
-  private collections: CollectionsModel[] = [];
+  collectionsSubject = new BehaviorSubject<CollectionsModel[]>([]);
+  collections: CollectionsModel[] = [];
   private index = 0;
 
   constructor() {
@@ -21,11 +23,15 @@ export class CollectionsService {
     if (coll) {
       this.collections = coll;
       this.index = coll[coll.length - 1].id + 1;
+      this.collectionsSubject.next(this.collections);
+    } else {
+      this.collectionsSubject.next([]);
     }
   }
 
-  fetchCollections() {
-
+  fetchMovies(cid: number): CollectionsModel {
+    console.log('fetch', cid);
+    return this.collections.find(x => x.id === cid);
   }
 
   addCollectionToLocal(newTitle: string, newDescription: string) {
@@ -39,7 +45,9 @@ export class CollectionsService {
     this.collections.push(newCollection);
 
     localStorage.setItem('collections', JSON.stringify(this.collections));
-    this.index++;
+    this.index++; // check if this gets messy
+
+    this.collectionsSubject.next(this.collections);
   }
 
 }

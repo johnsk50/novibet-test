@@ -99,7 +99,6 @@ export class SearchService {
     searchParams = searchParams.append('api_key', '85204a8cc33baf447559fb6d51b18313');
     searchParams = searchParams.append('guest_session_id', this.guestSessionId);
 
-
     this.http
       .post(
         'https://api.themoviedb.org/3/movie/' + movieId + '/rating',

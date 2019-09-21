@@ -4,6 +4,7 @@ import {SearchComponent} from './search/search.component';
 import {CollectionsComponent} from './collections/collections.component';
 import {CollectionCreationComponent} from './collections/collection-creation/collection-creation.component';
 import {CollectionDetailsComponent} from './collections/collection-details/collection-details.component';
+import {CollectionListComponent} from './collections/collection-list/collection-list.component';
 
 const appRoutes: Routes = [
   {path: '', redirectTo: '/search', pathMatch: 'full'},
@@ -12,8 +13,10 @@ const appRoutes: Routes = [
     path: 'collections',
     component: CollectionsComponent,
     children: [
-      {path: '', component: CollectionDetailsComponent},
+      {path: '', component: CollectionListComponent},
       {path: 'creation', component: CollectionCreationComponent},
+      //{path: 'details', component: CollectionDetailsComponent},
+      {path: 'details/:cid', component: CollectionDetailsComponent},
     ]
   },
   {path: '**', redirectTo: '/search'}

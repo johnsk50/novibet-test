@@ -57,10 +57,10 @@ export class SearchComponent implements OnInit {
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
   }
 
-  searchMovie(searchInput, aa: NgModel) {
-    if (aa.valid) {
+  searchMovie(searchField: NgModel) {
+    if (searchField.valid) {
       this.moviesData = [];
-      this.searchService.getSearchResults(searchInput, 1).subscribe(res => {
+      this.searchService.getSearchResults(searchField.value, 1).subscribe(res => {
         console.log(res);
         this.paginator.pageIndex = 0;
         res.results.forEach(x => {
@@ -85,7 +85,7 @@ export class SearchComponent implements OnInit {
         //       : this.url + item.poster_path;
         // });
       });
-      console.log(aa);
+      console.log('aa', searchField);
     }
   }
 
@@ -137,6 +137,10 @@ export class SearchComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
     });
+  }
+
+  onAddToCollection() {
+    console.log('selected', this.selection);
   }
 
 }

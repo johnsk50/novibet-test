@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup, NgForm, Validators} from '@angular/forms';
-import {CollectionsService} from '../../services/collections.service';
+import { NgForm } from '@angular/forms';
+import { CollectionsService } from '../../services/collections.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-collection-creation',
@@ -11,7 +12,8 @@ export class CollectionCreationComponent implements OnInit {
 
   //collectionForm: FormGroup;
 
-  constructor(private collectionsService: CollectionsService) { }
+  constructor(private collectionsService: CollectionsService,
+              private router: Router) { }
 
   ngOnInit() {
     //this.initializeForm();
@@ -30,7 +32,7 @@ export class CollectionCreationComponent implements OnInit {
 
     this.collectionsService.addCollectionToLocal(form.value.title, form.value.description);
 
-
+    this.router.navigate(['/collections']);
     // const {title, description} = this.collectionForm.controls;
     //
     // console.log(title.value, description.value);

@@ -15,7 +15,7 @@ export class CustomDirectiveDirective implements Validator {
 
   validator: ValidatorFn;
 
-  regEx = /^[a-z0-9]+$/i;
+  regEx = /^[a-z0-9 ]+$/i;
   test = 'asdf,';
   constructor(private elementRef: ElementRef) {
     this.validator = this.customValidator();
@@ -25,23 +25,10 @@ export class CustomDirectiveDirective implements Validator {
     return this.validator(c);
   }
 
-  // ngOnInit() {
-  //   console.log(this.elementRef.nativeElement);
-  //   this.elementRef.nativeElement.invalid = true;
-  // }
-  //
-  // ngDoCheck() {
-  //   // if (this.elementRef.nativeElement.value && !this.regEx.test(this.elementRef.nativeElement.value)){
-  //   //   this.elementRef.nativeElement.value = '';
-  //   // }
-  //   //console.log(this.regEx.test(this.elementRef.nativeElement.value));
-  //   //console.log(this.regEx.test(this.elementRef.nativeElement.value));
-  //   //if (this.elementRef.nativeElement.value.test(this.regEx))
-  // }
   customValidator(): ValidatorFn {
     return (c: FormControl) => {
       const isValid = this.regEx.test(c.value);
-      if (isValid && c.value && c.value.length >= 3) {
+      if (isValid && c.value && c.value.trim().length >= 3) {
         return null;
       } else {
         return {
@@ -52,10 +39,5 @@ export class CustomDirectiveDirective implements Validator {
       }
     };
   }
-
-
-
-
-
 
 }

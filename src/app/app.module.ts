@@ -26,6 +26,7 @@ import {MatSliderModule} from '@angular/material/slider';
 import {MatButtonModule} from '@angular/material/button';
 import { CollectionCreationComponent } from './collections/collection-creation/collection-creation.component';
 import { CollectionDetailsComponent } from './collections/collection-details/collection-details.component';
+import { CollectionListComponent } from './collections/collection-list/collection-list.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { CollectionDetailsComponent } from './collections/collection-details/col
     HeaderComponent,
     CollectionsComponent,
     CollectionCreationComponent,
-    CollectionDetailsComponent
+    CollectionDetailsComponent,
+    CollectionListComponent
   ],
   imports: [
     BrowserModule,
