@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {SearchService} from '../search.service';
+import {SearchService} from '../services/search.service';
 import {NgModel} from '@angular/forms';
 import {MoviesResults} from '../models/movieResults.model';
 import {MatTableDataSource} from '@angular/material/table';
@@ -73,7 +73,7 @@ export class SearchComponent implements OnInit {
         });
         // this.moviesData.push(...res);
 
-        this.moviesData = this.moviesData;
+        // this.moviesData = this.moviesData;
         console.log('movies', this.movies.data);
 
         this.movies.data = this.moviesData;
@@ -118,7 +118,7 @@ export class SearchComponent implements OnInit {
       console.log('movies', this.movies.data);
       this.movies.data = this.moviesData;
       this.resultsLength = res.total_results;
-      //this.movies.data.push([...res.results]);
+      // this.movies.data.push([...res.results]);
       // this.movies.data.forEach(item => {
       //   item.poster_path =
       //     item.poster_path === null

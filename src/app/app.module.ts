@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { SearchComponent } from './search/search.component';
 import {HttpClientModule} from '@angular/common/http';
-import {SearchService} from './search.service';
+import {SearchService} from './services/search.service';
 import {MatInputModule} from '@angular/material/input';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CustomDirectiveDirective} from './shared/customDirective.directive';
@@ -44,7 +44,6 @@ import { CollectionDetailsComponent } from './collections/collection-details/col
     MatTabsModule,
     HttpClientModule,
     MatInputModule,
-    FormsModule,
     FormsModule,
     ReactiveFormsModule,
     MatCardModule,

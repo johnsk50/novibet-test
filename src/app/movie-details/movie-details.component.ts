@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {DialogInputData} from '../models/dialogInputData.model';
-import {SearchService} from '../search.service';
+import {SearchService} from '../services/search.service';
 import {MovieDetailsModel} from '../models/movieDetails.model';
 
 @Component({

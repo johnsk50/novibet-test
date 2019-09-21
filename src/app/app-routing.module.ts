@@ -3,6 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {SearchComponent} from './search/search.component';
 import {CollectionsComponent} from './collections/collections.component';
 import {CollectionCreationComponent} from './collections/collection-creation/collection-creation.component';
+import {CollectionDetailsComponent} from './collections/collection-details/collection-details.component';
 
 const appRoutes: Routes = [
   {path: '', redirectTo: '/search', pathMatch: 'full'},
@@ -11,6 +12,7 @@ const appRoutes: Routes = [
     path: 'collections',
     component: CollectionsComponent,
     children: [
+      {path: '', component: CollectionDetailsComponent},
       {path: 'creation', component: CollectionCreationComponent},
     ]
   },
@@ -22,4 +24,4 @@ const appRoutes: Routes = [
   imports: [RouterModule.forRoot(appRoutes)],
   exports:  [RouterModule]
 })
-export class AppRoutingModule{}
+export class AppRoutingModule {}
