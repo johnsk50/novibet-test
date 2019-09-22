@@ -1,10 +1,13 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {CollectionsModel} from '../../models/collections.model';
-import {MatTableDataSource} from '@angular/material';
+import {MatTableDataSource} from '@angular/material/table';
 import {CollectionsService} from '../../services/collections.service';
 import {Subscription} from 'rxjs';
-import {MoviesResults} from '../../models/movieResults.model';
+import {MoviesResults} from '../../models/movie-results.model';
 import {ActivatedRoute, Params} from '@angular/router';
+import {MovieDetailsComponent} from '../../movie-details/movie-details.component';
+import {MatDialog} from '@angular/material/dialog';
+import {MatPaginator} from '@angular/material';
 
 @Component({
   selector: 'app-collection-details',
@@ -23,27 +26,28 @@ export class CollectionDetailsComponent implements OnInit, OnDestroy {
 
   collection = new CollectionsModel();
 
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
   hasMovies = false;
 
   constructor(private collectionsService: CollectionsService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              public dialog: MatDialog) { }
 
   ngOnInit() {
-
-    // this.cid = this.route.snapshot.queryParams.cid;
+    this.movieList.paginator = this.paginator;
     this.route.params.subscribe((params: Params) => {
       this.cid = +params.cid;
     });
 
-    this.collection = this.collectionsService.fetchMovies(this.cid);
+    this.collection = this.collectionsService.fetchCollectionDetails(this.cid);
     console.log('cid', this.cid);
     console.log('this.collection', this.collection);
 
     if (this.collection.movies && this.collection.movies.length > 0) {
       this.hasMovies = true;
-      this.resultsLength = this.collection.movies.length;
       this.movieList.data = [...this.collection.movies];
-
+      this.resultsLength = this.collection.movies.length;
     } else {
       this.hasMovies = false;
       this.movieList.data = [];
@@ -52,20 +56,28 @@ export class CollectionDetailsComponent implements OnInit, OnDestroy {
     //   this.collection.data = collection;
     // });
     // this.collection.data = this.defaultCollection;
-    //console.log('in details!!!', this.collectionsService.fetchMovies(4));
-    //if()
-  }
-
-  goToCollectionDetails(id: number) {
+    // console.log('in details!!!', this.collectionsService.fetchMovies(4));
+    // if()
 
   }
 
-  onRemoveMovie() {
+  goToCollectionDetails(movieId: number) {
+    const dialogRef = this.dialog.open(MovieDetailsComponent, {
+      width: '750px',
+      data: { id: movieId }
+    });
 
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
+  onRemoveMovie(movieId: number) {
+    this.collectionsService.removeMovie(this.cid, movieId);
   }
 
   ngOnDestroy() {
-    //this.sub.unsubscribe();
+    // this.sub.unsubscribe();
   }
 
 }

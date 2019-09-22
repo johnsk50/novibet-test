@@ -1,4 +1,4 @@
-import {MoviesResults} from './movieResults.model';
+import {MoviesResults} from './movie-results.model';
 
 export class CollectionsModel {
   id: number;

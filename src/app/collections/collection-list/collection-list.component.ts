@@ -35,11 +35,13 @@ export class CollectionListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.collections.paginator = this.paginator;
-    this.sub = this.collectionsService.collectionsSubject.subscribe( collection => {
-      this.resultsLength = collection.length;
-      this.collections.data = collection;
-
-    });
+    // this.sub = this.collectionsService.collectionsSubject.subscribe( collection => {
+    //   this.resultsLength = collection.length;
+    //   this.collections.data = collection;
+    //
+    // });
+    this.collections.data = this.collectionsService.fetchCollections();
+    this.resultsLength = this.collections.data.length;
     // this.collections.data = this.defaultCollection;
   }
 
@@ -48,7 +50,7 @@ export class CollectionListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.sub.unsubscribe();
+    //this.sub.unsubscribe();
   }
 
 }

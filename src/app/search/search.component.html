@@ -54,8 +54,7 @@
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-    <tr mat-row #rowItem *matRowDef="let row; columns: columnsToDisplay;"
-        (click)="test()"></tr>
+    <tr mat-row #rowItem *matRowDef="let row; columns: columnsToDisplay;"></tr>
 <!--    routerLink="/cocktail:id={{row.idDrink}}"-->
   </table>
   <mat-paginator
@@ -71,6 +70,7 @@
   <button
     mat-raised-button
     color="accent"
+    [disabled]="selection.selected.length === 0"
     (click)="onAddToCollection()"
   >Add to Collection</button>
 </div>

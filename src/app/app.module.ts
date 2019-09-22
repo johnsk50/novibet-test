@@ -27,6 +27,7 @@ import {MatButtonModule} from '@angular/material/button';
 import { CollectionCreationComponent } from './collections/collection-creation/collection-creation.component';
 import { CollectionDetailsComponent } from './collections/collection-details/collection-details.component';
 import { CollectionListComponent } from './collections/collection-list/collection-list.component';
+import { CollectionSelectComponent } from './collections/collection-select/collection-select.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { CollectionListComponent } from './collections/collection-list/collectio
     CollectionsComponent,
     CollectionCreationComponent,
     CollectionDetailsComponent,
-    CollectionListComponent
+    CollectionListComponent,
+    CollectionSelectComponent
   ],
   imports: [
     BrowserModule,
@@ -61,7 +63,7 @@ import { CollectionListComponent } from './collections/collection-list/collectio
     MatButtonModule
 
   ],
-  entryComponents: [MovieDetailsComponent],
+  entryComponents: [MovieDetailsComponent, CollectionSelectComponent],
   providers: [SearchService],
   bootstrap: [AppComponent]
 })

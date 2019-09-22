@@ -1,0 +1,10 @@
+<mat-grid-list cols="4" rowHeight="20px">
+  <mat-grid-tile
+    *ngFor="let tile of collections"
+    [colspan]="1"
+    [rowspan]="1"
+    (click)="onCollectionClicked(tile.id)"
+    [style.background]="'gray'">
+    {{tile.title}}
+  </mat-grid-tile>
+</mat-grid-list>

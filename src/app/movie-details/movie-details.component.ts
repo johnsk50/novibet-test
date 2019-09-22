@@ -1,8 +1,8 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {DialogInputData} from '../models/dialogInputData.model';
+import {DialogInputData} from '../models/dialog-input-data.model';
 import {SearchService} from '../services/search.service';
-import {MovieDetailsModel} from '../models/movieDetails.model';
+import {MovieDetailsModel} from '../models/movie-details.model';
 
 @Component({
   selector: 'app-movie-details',
@@ -10,11 +10,9 @@ import {MovieDetailsModel} from '../models/movieDetails.model';
   styleUrls: ['./movie-details.component.css']
 })
 export class MovieDetailsComponent implements OnInit {
-  // public dialogRef: MatDialogRef<MovieDetailsComponent>,
   movieDetails = new MovieDetailsModel();
 
   // slider properties
-
   disabled = false;
   max = 10;
   min = 0.5;
@@ -24,8 +22,6 @@ export class MovieDetailsComponent implements OnInit {
 
   constructor( private searchService: SearchService,
                @Inject(MAT_DIALOG_DATA) public data: DialogInputData) { }
-
-
 
   ngOnInit() {
     console.log(this.data);
@@ -40,7 +36,4 @@ export class MovieDetailsComponent implements OnInit {
   onRate() {
     this.searchService.rateMovie( this.data.id, this.value);
   }
-  // onNoClick(): void {
-  //   this.dialogRef.close();
-  // }
 }

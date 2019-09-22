@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {map} from 'rxjs/operators';
-import {MovieDetailsModel} from '../models/movieDetails.model';
-import {MovieResultsModel} from '../models/movieResults.model';
+import {MovieDetailsModel} from '../models/movie-details.model';
+import {MovieResultsModel} from '../models/movie-results.model';
 
 @Injectable()
 export class SearchService {

@@ -1,12 +1,13 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {SearchService} from '../services/search.service';
 import {NgModel} from '@angular/forms';
-import {MoviesResults} from '../models/movieResults.model';
+import {MoviesResults} from '../models/movie-results.model';
 import {MatTableDataSource} from '@angular/material/table';
 import {SelectionModel} from '@angular/cdk/collections';
 import { MatPaginator} from '@angular/material/paginator';
 import {MovieDetailsComponent} from '../movie-details/movie-details.component';
 import {MatDialog} from '@angular/material/dialog';
+import {CollectionSelectComponent} from '../collections/collection-select/collection-select.component';
 
 @Component({
   selector: 'app-search',
@@ -89,10 +90,6 @@ export class SearchComponent implements OnInit {
     }
   }
 
-  test() {
-    console.log(this.selection);
-  }
-
   goToNextPage(searchInput, event) {
     this.searchService.getSearchResults(searchInput, event.pageIndex + 1).subscribe(res => {
       console.log(res);
@@ -140,24 +137,21 @@ export class SearchComponent implements OnInit {
   }
 
   onAddToCollection() {
-    console.log('selected', this.selection);
+    console.log('selected', this.selection.selected);
+
+    const dialogRef = this.dialog.open(CollectionSelectComponent, {
+      width: '750px',
+      data: { movies: this.selection.selected }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+
   }
 
 }
 
-// searchMovie(searchInput, aa: NgModel) {
-//   if (aa.valid) {
-//     this.searchService.getSearchResults(searchInput).subscribe(res => {
-//       console.log(res);
-//       this.movies = [...res.results];
-//       this.movies.forEach(item => {
-//         item.poster_path =
-//           item.poster_path === null
-//             ? "./../../../assets/images/no-image.png"
-//             : this.url + item.poster_path;
-//       });
-//     });
-//     console.log(aa);
-//   }
-//
-// }
+export class Test {
+
+}
