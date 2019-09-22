@@ -4,6 +4,7 @@ import {DialogInputData} from '../models/dialog-input-data.model';
 import {SearchService} from '../services/search.service';
 import {MovieDetailsModel} from '../models/movie-details.model';
 import {Subscription} from 'rxjs';
+import {take} from 'rxjs/operators';
 
 @Component({
   selector: 'app-movie-details',
@@ -29,18 +30,15 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
                @Inject(MAT_DIALOG_DATA) public data: DialogInputData) { }
 
   ngOnInit() {
-    console.log(this.data);
-
-    this.searchService.getMovieDetails(this.data.id)
+    this.searchService.getMovieDetails(this.data.id).pipe(take(1))
       .subscribe( result => {
         this.movieDetails = result;
-        console.log('movieDetails', result);
       });
   }
 
   onRate() {
     this.sub = this.searchService.rateMovie( this.data.id, this.value).subscribe( x => {
-     if (x.status_code === 1) {
+      if (x.status_code === 1) {
        this.rateSuccessMessage = 'Thank you for rating!';
      } else if (x.status_code === 12) {
        this.rateSuccessMessage = 'Your rating has been updated successfully';

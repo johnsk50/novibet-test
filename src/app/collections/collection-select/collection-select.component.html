@@ -1,6 +1,7 @@
-<h3> Add the selected movies to a collection </h3>
+<h3 style="text-align:center"> Add the selected movies to a collection </h3>
 <mat-grid-list cols="4" rowHeight="20px">
   <mat-grid-tile
+    style="cursor: pointer"
     *ngFor="let tile of collections"
     [colspan]="1"
     [rowspan]="1"
@@ -10,6 +11,6 @@
   </mat-grid-tile>
 </mat-grid-list>
 <br>
-<div class="collection-button-row">
+<div class="collection-button-row" style="text-align:right">
   <button mat-raised-button color="warn" (click)="closePopUp()">Close</button>
 </div>

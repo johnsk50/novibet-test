@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {CollectionsModel} from '../../models/collections.model';
 import {MatTableDataSource} from '@angular/material/table';
 import {CollectionsService} from '../../services/collections.service';
@@ -13,7 +13,7 @@ import {MatPaginator} from '@angular/material';
   templateUrl: './collection-details.component.html',
   styleUrls: ['./collection-details.component.css']
 })
-export class CollectionDetailsComponent implements OnInit {
+export class CollectionDetailsComponent implements OnInit, AfterViewInit {
 
   cid = 0;
   page = 10;
@@ -32,7 +32,6 @@ export class CollectionDetailsComponent implements OnInit {
               public dialog: MatDialog) { }
 
   ngOnInit() {
-    this.movieList.paginator = this.paginator;
     this.route.params.subscribe((params: Params) => {
       this.cid = +params.cid;
     });
@@ -49,6 +48,10 @@ export class CollectionDetailsComponent implements OnInit {
     }
   }
 
+  ngAfterViewInit(): void {
+    this.movieList.paginator = this.paginator;
+  }
+
   goToCollectionDetails(movieId: number) {
     this.dialog.open(MovieDetailsComponent, {
       width: '750px',
@@ -59,6 +62,7 @@ export class CollectionDetailsComponent implements OnInit {
   onRemoveMovie(movieId: number) {
     const movieIndex = this.movieList.data.findIndex(      item => item.id === movieId);
     this.movieList.data.splice(movieIndex, 1);
+    this.paginator.length = this.movieList.data.length;
     this.movieList._updateChangeSubscription();
     this.collectionsService.removeMovie(this.cid, movieId);
   }

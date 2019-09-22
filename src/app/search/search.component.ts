@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {SearchService} from '../services/search.service';
 import {NgModel} from '@angular/forms';
 import {MoviesResults} from '../models/movie-results.model';
@@ -15,7 +15,7 @@ import {take} from 'rxjs/operators';
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.css']
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent implements OnInit, AfterViewInit {
 
   movies = new MatTableDataSource<MoviesResults>();
   selection = new SelectionModel<MoviesResults>(true, []);
@@ -35,6 +35,10 @@ export class SearchComponent implements OnInit {
               public dialog: MatDialog) { }
 
   ngOnInit() {
+
+  }
+
+  ngAfterViewInit(): void {
     this.movies.paginator = this.paginator;
   }
 
@@ -67,6 +71,7 @@ export class SearchComponent implements OnInit {
       this.searchService.getSearchResults(searchField.value, 1).pipe(take(1)).subscribe(res => {
         this.paginator.pageIndex = 0;
         this.movies.data = res.results;
+        this.page = res.results.length;
         this.resultsLength = res.total_results;
         this.paginator.length = res.total_results;
         this.loadedPages = 0;
@@ -78,12 +83,11 @@ export class SearchComponent implements OnInit {
 
     if (event.previousPageIndex < event.pageIndex && this.loadedPages < event.pageIndex) {
       this.searchService.getSearchResults(searchInput, event.pageIndex + 1).pipe(take(1)).subscribe(res => {
-        console.log('movies', this.movies.data);
         this.movies.data.push(...res.results);
-        this.resultsLength = res.total_results;
-        this.paginator.length = res.total_results;
-        this.paginator.hasNextPage();
-        this.movies.paginator.length = res.total_results;
+        setTimeout(() => {
+          this.resultsLength = res.total_results;
+          this.paginator.length = res.total_results;
+        }, 0);
         this.movies._updateChangeSubscription();
         this.loadedPages++;
       });

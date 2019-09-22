@@ -37,9 +37,8 @@ export class SearchService {
       ).pipe(map(responseData => {
 
           responseData.results.forEach(x => {
-
-            x.poster_path = x.poster_path ? this.url + x.poster_path : './../../../assets/images/no-image.png';
-
+            x.poster_path = x.poster_path ?
+              this.url + x.poster_path : './../../../assets/images/no-image.png';
           });
 
           return responseData;
@@ -63,7 +62,8 @@ export class SearchService {
 
           movieDetails.title = responseData.title;
           movieDetails.overview =  responseData.overview;
-          movieDetails.poster_path =  responseData.poster_path ? this.url + responseData.poster_path : './../../../assets/images/no-image.png';
+          movieDetails.poster_path =  responseData.poster_path ?
+            this.url + responseData.poster_path : './../../../assets/images/no-image.png';
           movieDetails.budget =  responseData.budget;
           movieDetails.release_date =  responseData.release_date;
           movieDetails.revenue =  responseData.revenue;
@@ -80,7 +80,7 @@ export class SearchService {
     let searchParams = new HttpParams();
     searchParams = searchParams.append('api_key', '85204a8cc33baf447559fb6d51b18313');
 
-    return this.http
+    this.http
       .get<GuestSessionResponse>(
         'https://api.themoviedb.org/3/authentication/guest_session/new',
         {
