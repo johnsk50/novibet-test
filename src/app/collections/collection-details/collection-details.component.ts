@@ -73,6 +73,9 @@ export class CollectionDetailsComponent implements OnInit, OnDestroy {
   }
 
   onRemoveMovie(movieId: number) {
+    const movieIndex = this.movieList.data.findIndex(      item => item.id === movieId);
+    this.movieList.data.splice(movieIndex, 1);
+    this.movieList._updateChangeSubscription();
     this.collectionsService.removeMovie(this.cid, movieId);
   }
 

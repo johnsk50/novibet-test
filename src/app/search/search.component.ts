@@ -61,6 +61,7 @@ export class SearchComponent implements OnInit {
   searchMovie(searchField: NgModel) {
     if (searchField.valid) {
       this.moviesData = [];
+      this.selection.clear();
       this.searchService.getSearchResults(searchField.value, 1).subscribe(res => {
         console.log(res);
         this.paginator.pageIndex = 0;
