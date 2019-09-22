@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {CollectionsModel} from '../models/collections.model';
-// import {BehaviorSubject} from 'rxjs';
 import {MoviesResults} from '../models/movie-results.model';
 
 @Injectable({
@@ -8,10 +7,8 @@ import {MoviesResults} from '../models/movie-results.model';
 })
 export class CollectionsService {
 
-  // collectionsSubject = new BehaviorSubject<CollectionsModel[]>([]);
   private collections: CollectionsModel[] = [];
 
-  // collSubject = new BehaviorSubject<CollectionsModel>(new CollectionsModel());
   private index = 0;
 
   constructor() {

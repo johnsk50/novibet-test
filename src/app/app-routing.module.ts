@@ -15,7 +15,6 @@ const appRoutes: Routes = [
     children: [
       {path: '', component: CollectionListComponent},
       {path: 'creation', component: CollectionCreationComponent},
-      //{path: 'details', component: CollectionDetailsComponent},
       {path: 'details/:cid', component: CollectionDetailsComponent},
     ]
   },

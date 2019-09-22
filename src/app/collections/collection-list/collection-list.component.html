@@ -16,16 +16,9 @@
       <th mat-header-cell *matHeaderCellDef> Details </th>
       <td mat-cell *matCellDef="let element"> <a mat-raised-button color="primary" [routerLink]="['/collections/details', element.id]" > Details </a></td>
     </ng-container>
-<!--    [queryParams]="{cid: element.id}"-->
-    <!--    <ng-container matColumnDef="details">-->
-    <!--      <th mat-header-cell *matHeaderCellDef> Details </th>-->
-    <!--      <td mat-cell *matCellDef="let element"> <button (click)="onClickDetails(element.id)"> Details </button></td>-->
-    <!--    </ng-container>-->
-
     <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-    <tr mat-row #rowItem *matRowDef="let row; columns: columnsToDisplay;"
+    <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"
         (click)="goToCollectionDetails()"></tr>
-    <!--    routerLink="/cocktail:id={{row.idDrink}}"-->
   </table>
   <mat-paginator
     class="mat-elevation-z8"
