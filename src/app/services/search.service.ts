@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {map} from 'rxjs/operators';
 import {MovieDetailsModel} from '../models/movie-details.model';
-import {MovieResultsModel} from '../models/movie-results.model';
+import {MovieResultsModel, MoviesResults} from '../models/movie-results.model';
 
 @Injectable()
 export class SearchService {
@@ -35,14 +35,12 @@ export class SearchService {
           params: searchParams
         }
       ).pipe(map(responseData => {
-        // let moviesResults: MoviesResults[] = [];
-        //
-        // moviesResults = [...responseData];
-        // moviesResults.forEach( x => {
-        //   x.poster_path = x.poster_path ? this.url + x.poster_path : './../../../assets/images/no-image.png';
-        // });
-        //
-        // return moviesResults;
+
+          responseData.results.forEach(x => {
+
+            x.poster_path = x.poster_path ? this.url + x.poster_path : './../../../assets/images/no-image.png';
+
+          });
 
           return responseData;
         }
@@ -90,7 +88,6 @@ export class SearchService {
         }
       ).subscribe(response => {
         this.guestSessionId = response.guest_session_id;
-        console.log('guest', response);
       });
   }
 
@@ -99,8 +96,8 @@ export class SearchService {
     searchParams = searchParams.append('api_key', '85204a8cc33baf447559fb6d51b18313');
     searchParams = searchParams.append('guest_session_id', this.guestSessionId);
 
-    this.http
-      .post(
+    return this.http
+      .post<RateResponse>(
         'https://api.themoviedb.org/3/movie/' + movieId + '/rating',
         {value: rating,
           headers: this.headers},
@@ -108,9 +105,7 @@ export class SearchService {
           //
           params: searchParams,
         }
-      ).subscribe(response => {
-      console.log('rating', response);
-    });
+      );
   }
 
 }
@@ -124,4 +119,14 @@ class GuestSessionResponse {
     this.guest_session_id = '';
     this.expires_at = '';
   }
+}
+
+export class RateResponse {
+  status_code: number;
+  status_message: string;
+
+  constructor() {
+    this.status_message = '';
+  }
+
 }

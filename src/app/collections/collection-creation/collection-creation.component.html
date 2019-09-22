@@ -8,6 +8,7 @@
         name="title"
         ngModel
         required
+        maxlength="30"
         appCustomDirective>
 <!--      <mat-error *ngIf="search.invalid">-->
 <!--        No symbols allowed-->
@@ -15,13 +16,14 @@
     </mat-form-field>
     <br>
     <mat-form-field class="search-full-width">
-      <input
+      <textarea
         matInput
         placeholder="Description"
         name="description"
         value=""
         ngModel
-        required>
+        maxlength="200"
+        required></textarea>
       <!--      <mat-error *ngIf="search.invalid">-->
       <!--        No symbols allowed-->
       <!--      </mat-error>-->

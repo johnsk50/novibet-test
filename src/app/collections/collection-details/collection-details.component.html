@@ -4,9 +4,9 @@
 <div *ngIf="!hasMovies">
   <h3> This collection is empty. Please add some movies from the search page and come back! </h3>
 </div>
-<div>
+<div *ngIf="hasMovies">
 
-  <table *ngIf="hasMovies" mat-table [dataSource]="movieList" class="mat-elevation-z8">
+  <table mat-table [dataSource]="movieList" class="mat-elevation-z8">
 
     <ng-container matColumnDef="title">
       <th mat-header-cell *matHeaderCellDef> Title </th>
@@ -34,8 +34,7 @@
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-    <tr mat-row #rowItem *matRowDef="let row; columns: columnsToDisplay;"></tr>
-    <!--    routerLink="/cocktail:id={{row.idDrink}}"-->
+    <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
   </table>
   <mat-paginator
     class="mat-elevation-z8"
@@ -45,5 +44,5 @@
 
 </div>
 <div class="collection-button-row">
-  <a mat-raised-button color="primary" routerLink="/collections">Back to Collections</a>
+  <a mat-raised-button routerLink="/collections">Back to Collections</a>
 </div>

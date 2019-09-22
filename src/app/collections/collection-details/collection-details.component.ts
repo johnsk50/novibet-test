@@ -2,7 +2,6 @@ import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {CollectionsModel} from '../../models/collections.model';
 import {MatTableDataSource} from '@angular/material/table';
 import {CollectionsService} from '../../services/collections.service';
-import {Subscription} from 'rxjs';
 import {MoviesResults} from '../../models/movie-results.model';
 import {ActivatedRoute, Params} from '@angular/router';
 import {MovieDetailsComponent} from '../../movie-details/movie-details.component';
@@ -14,11 +13,9 @@ import {MatPaginator} from '@angular/material';
   templateUrl: './collection-details.component.html',
   styleUrls: ['./collection-details.component.css']
 })
-export class CollectionDetailsComponent implements OnInit, OnDestroy {
+export class CollectionDetailsComponent implements OnInit {
 
   cid = 0;
-  sub: Subscription;
-
   page = 10;
   resultsLength = 0;
   columnsToDisplay = ['title', 'vote_average', 'poster_path', 'details', 'removeItem'];
@@ -41,8 +38,6 @@ export class CollectionDetailsComponent implements OnInit, OnDestroy {
     });
 
     this.collection = this.collectionsService.fetchCollectionDetails(this.cid);
-    console.log('cid', this.cid);
-    console.log('this.collection', this.collection);
 
     if (this.collection.movies && this.collection.movies.length > 0) {
       this.hasMovies = true;
@@ -52,23 +47,12 @@ export class CollectionDetailsComponent implements OnInit, OnDestroy {
       this.hasMovies = false;
       this.movieList.data = [];
     }
-    // this.sub = this.collectionsService.collectionsSubject.subscribe( collection => {
-    //   this.collection.data = collection;
-    // });
-    // this.collection.data = this.defaultCollection;
-    // console.log('in details!!!', this.collectionsService.fetchMovies(4));
-    // if()
-
   }
 
   goToCollectionDetails(movieId: number) {
-    const dialogRef = this.dialog.open(MovieDetailsComponent, {
+    this.dialog.open(MovieDetailsComponent, {
       width: '750px',
       data: { id: movieId }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
     });
   }
 
@@ -78,9 +62,4 @@ export class CollectionDetailsComponent implements OnInit, OnDestroy {
     this.movieList._updateChangeSubscription();
     this.collectionsService.removeMovie(this.cid, movieId);
   }
-
-  ngOnDestroy() {
-    // this.sub.unsubscribe();
-  }
-
 }

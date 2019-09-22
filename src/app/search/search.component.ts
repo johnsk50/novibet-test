@@ -4,10 +4,11 @@ import {NgModel} from '@angular/forms';
 import {MoviesResults} from '../models/movie-results.model';
 import {MatTableDataSource} from '@angular/material/table';
 import {SelectionModel} from '@angular/cdk/collections';
-import { MatPaginator} from '@angular/material/paginator';
+import {MatPaginator, PageEvent} from '@angular/material/paginator';
 import {MovieDetailsComponent} from '../movie-details/movie-details.component';
 import {MatDialog} from '@angular/material/dialog';
 import {CollectionSelectComponent} from '../collections/collection-select/collection-select.component';
+import {take} from 'rxjs/operators';
 
 @Component({
   selector: 'app-search',
@@ -18,13 +19,14 @@ export class SearchComponent implements OnInit {
 
   movies = new MatTableDataSource<MoviesResults>();
   selection = new SelectionModel<MoviesResults>(true, []);
-  url = 'https://image.tmdb.org/t/p/w500';
   columnsToDisplay = ['select', 'title', 'vote_average', 'poster_path', 'details'];
 
   moviesData: MoviesResults[] = [];
 
   resultsLength = 0;
   page = 20;
+
+  loadedPages = 0;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -62,97 +64,43 @@ export class SearchComponent implements OnInit {
     if (searchField.valid) {
       this.moviesData = [];
       this.selection.clear();
-      this.searchService.getSearchResults(searchField.value, 1).subscribe(res => {
-        console.log(res);
+      this.searchService.getSearchResults(searchField.value, 1).pipe(take(1)).subscribe(res => {
         this.paginator.pageIndex = 0;
-        res.results.forEach(x => {
-          const tempItem = new MoviesResults();
-          tempItem.id = x.id;
-          tempItem.vote_average = x.vote_average;
-          tempItem.title = x.title;
-          tempItem.poster_path = x.poster_path ? this.url + x.poster_path : './../../../assets/images/no-image.png';
-          this.moviesData.push(tempItem);
-        });
-        // this.moviesData.push(...res);
-
-        // this.moviesData = this.moviesData;
-        console.log('movies', this.movies.data);
-
-        this.movies.data = this.moviesData;
+        this.movies.data = res.results;
         this.resultsLength = res.total_results;
-        // this.movies.data.forEach(item => {
-        //   item.poster_path =
-        //     item.poster_path === null
-        //       ? './../../../assets/images/no-image.png'
-        //       : this.url + item.poster_path;
-        // });
+        this.paginator.length = res.total_results;
+        this.loadedPages = 0;
       });
-      console.log('aa', searchField);
     }
   }
 
-  goToNextPage(searchInput, event) {
-    this.searchService.getSearchResults(searchInput, event.pageIndex + 1).subscribe(res => {
-      console.log(res);
-      // this.paginator.pageIndex = event.pageIndex;
-      // res.results.forEach(x => {
-      //   this.movies.data.push({
-      //     poster_path: x.poster_path ? this.url + x.poster_path : './../../../assets/images/no-image.png',
-      //     title: x.title,
-      //     vote_average: x.vote_average,
-      //     id: x.id
-      //   });
-      // })
+  goToNextPage(searchInput: string, event: PageEvent) {
 
-      res.results.forEach(x => {
-        const tempItem = new MoviesResults();
-        tempItem.id = x.id;
-        tempItem.vote_average = x.vote_average;
-        tempItem.title = x.title;
-        tempItem.poster_path = x.poster_path ? this.url + x.poster_path : './../../../assets/images/no-image.png';
-        this.moviesData.push(tempItem);
+    if (event.previousPageIndex < event.pageIndex && this.loadedPages < event.pageIndex) {
+      this.searchService.getSearchResults(searchInput, event.pageIndex + 1).pipe(take(1)).subscribe(res => {
+        console.log('movies', this.movies.data);
+        this.movies.data.push(...res.results);
+        this.resultsLength = res.total_results;
+        this.paginator.length = res.total_results;
+        this.paginator.hasNextPage();
+        this.movies.paginator.length = res.total_results;
+        this.movies._updateChangeSubscription();
+        this.loadedPages++;
       });
-      // this.moviesData.push(tempList);
-      console.log('movies', this.movies.data);
-      this.movies.data = this.moviesData;
-      this.resultsLength = res.total_results;
-      // this.movies.data.push([...res.results]);
-      // this.movies.data.forEach(item => {
-      //   item.poster_path =
-      //     item.poster_path === null
-      //       ? './../../../assets/images/no-image.png'
-      //       : this.url + item.poster_path;
-      // });
-    });
+    }
   }
 
   onClickDetails(movieId: number) {
-    const dialogRef = this.dialog.open(MovieDetailsComponent, {
+    this.dialog.open(MovieDetailsComponent, {
       width: '750px',
       data: { id: movieId }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
     });
   }
 
   onAddToCollection() {
-    console.log('selected', this.selection.selected);
-
-    const dialogRef = this.dialog.open(CollectionSelectComponent, {
+    this.dialog.open(CollectionSelectComponent, {
       width: '750px',
       data: { movies: this.selection.selected }
     });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
-
   }
-
-}
-
-export class Test {
-
 }

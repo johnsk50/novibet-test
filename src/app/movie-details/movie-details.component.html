@@ -46,6 +46,6 @@
       [(ngModel)]="value">
     </mat-slider>
     <button mat-button color="primary" (click)="onRate()">RATE</button>
+    <p *ngIf="rateSuccessMessage">{{rateSuccessMessage}}</p>
   </mat-card-actions>
-<!--  <p *ngIf="showSuccess">Successfully Rated</p>-->
 </mat-card>

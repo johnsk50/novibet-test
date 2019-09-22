@@ -7,14 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CollectionsComponent implements OnInit {
 
-
-
   constructor() { }
 
   ngOnInit() {
-
-
   }
-
-
 }

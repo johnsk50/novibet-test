@@ -10,31 +10,15 @@ import { Router } from '@angular/router';
 })
 export class CollectionCreationComponent implements OnInit {
 
-  //collectionForm: FormGroup;
-
   constructor(private collectionsService: CollectionsService,
               private router: Router) { }
 
   ngOnInit() {
-    //this.initializeForm();
   }
 
-  // initializeForm() {
-  //   this.collectionForm = new FormGroup({
-  //     title: new FormControl('', [Validators.required]),
-  //     description: new FormControl('', Validators.required)
-  //   });
-  // }
-
   onSubmit(form: NgForm) {
-    console.log('form', form);
-    // form.value.description
-
     this.collectionsService.addCollectionToLocal(form.value.title, form.value.description);
 
     this.router.navigate(['/collections']);
-    // const {title, description} = this.collectionForm.controls;
-    //
-    // console.log(title.value, description.value);
   }
 }
